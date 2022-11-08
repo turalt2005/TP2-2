@@ -4,11 +4,30 @@
 import random
 
 Quit = 'n'
+min = 0
+max = 100
+
+#Lorsqu'on va commercer le jeu, l'ordi va nous demander si on veut choisir une valeur minimale et maximale
+def choix_bornes():
+    global min
+    global max
+    min = int(input('borne maximale'))
+    max = int(input('borne minimale'))
+
+#si on ne decide pas de choisir des bornes, l`ordi va prendre un nombrre aleatiore de 0 à 100 à nous faire deviner
 while Quit == 'n':
-    # cette lingne va faire en sorte que l`ordi va deviner un nombre au hasard de 0 à 1000
-    x = random.randint (0, 1000)
+    choix = input('Voulez-vous choisir des valeurs?')
+    if choix == 'non':
+        min = 0
+        max = 100
+    else:
+        choix_bornes()
+
+
+    # cette ligne va faire en sorte que l`ordi va deviner un nombre au hasard entre les deux nombres choisis
+    x = random.randint (min, max)
     nb_essai = 0
-    print ("Devinez le nombre entre 0 et 1000")
+    print ("Devinez le nombre entre 'min' et 'max")
     # Le str(1001) va assuer que le nombre choisi par l`ordi ne va pas depasser 1000
     essai = str (1001)
     while int (essai) != x:
