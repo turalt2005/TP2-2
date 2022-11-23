@@ -1,49 +1,50 @@
 # Troy Tural 404
-# TP3
-
+# TP2: Jeu de devinette
 import random
 
 Quit = 'n'
-nb_vies = 20
-monstres = random.randint (1, 5)
-de = random.randint (1, 6)
-regles_jeu = ("Bienvenue! Dans cette aventure, tu auras l'option de combattre des monstres avec des vies montant de 1 à 5.\n" \
-             "Tu as 20 vies. Si tu decide de le combattre avec le nombre 1,tu laceras 2 dés avec des valeurs de 1 à 6 chancun.\n" \
-             "Si le resulat est plus bas que le nbr de vies du monstre, tu perdera des vies egale aux vies du monstre. Perd tous les 20 et c`est partie terminée!\n"\
-             "Quand tu gagne, tu gangera des points egale au vies du monstre battue.\n" \
-             "Si tu decide de cliquer 2, tu echappera le combat, mais si tu decide de faire cela, tu perdera une vie.\n" \
-             "Clique 3 et tu pourra voir ce message\n" \
-             "Clique 4, et tu quitter le jeu.\n" \
-             "BONNE PARTIE!!! :D")
+min = 0
+max = 100
+
+#Lorsqu'on va commercer le jeu, l'ordi va nous demander si on veut choisir une valeur minimale et maximale
+def choix_bornes():
+    global min
+    global max
+    min = int(input('borne maximale'))
+    max = int(input('borne minimale'))
+
+#si on ne decide pas de choisir des bornes, l`ordi va prendre un nombrre aleatiore de 0 à 100 à nous faire deviner
 while Quit == 'n':
-    choix = input("Que desirez-vous faire?" \
-                   "1- Combattre\n"
-                   "2- Contourner et aller ouvrir une autre porte\n" \
-                   "3- Revoir les règles du jeu\n" \
-                   "4- Arrêter le jeu")
+    # cette lingne va faire en sorte que l`ordi va deviner un nombre au hasard de 0 à 1000
+    x = random.randint (0, 1000)
+    choix = input('Voulez-vous choisir des valeurs?')
+    if choix == 'non':
+        min = 0
+        max = 100
+    else:
+        choix_bornes()
 
-    if choix == str(1):
-        print(nb_vies)
-        print(monstres)
-        if de > monstres:
-            nb_vies = nb_vies + monstres
-            print("Victoire!")
-        if de <= monstres:
-            nb_vies = nb_vies - monstres
 
-    if choix == str(2):
-        nb_vies - 1
-        print("Vous vous echappez du combat! Mais en consequence, vous perdez une vie...")
-
-    if choix == str(3):
-        print(regles_jeu)
-
-    if choix == str(4):
-        Quit = input('Voulez-vous quitter? y/n')
-        if Quit == y:
-            print ("Merci d'avoir joué!")
-
-    if nb_vies == 0:
-        print ("Vous avez perdu tous vos vies...")
-        print (nb_vies)
-        print ("Merci d'avoir joué!")
+    # cette ligne va faire en sorte que l`ordi va deviner un nombre au hasard entre les deux nombres choisis
+    x = random.randint (min, max)
+    nb_essai = 0
+    print ("Devinez le nombre entre 0 et 1000")
+    print ("Devinez le nombre entre 'min' et 'max")
+    # Le str(1001) va assuer que le nombre choisi par l`ordi ne va pas depasser 1000
+    essai = str (1001)
+    while int (essai) != x:
+        essai = input ("Entrez votre essai")
+        # Chaque fois qu`on ne devine pas le bon nombre, le code va prendre en note le nombre d`essais deviner jusqu`au moment qu`on devine le nombre mystère
+        nb_essai += 1
+        # Si le nombre qu`on a deviner est plus petit que le nombre mystère, l`écran affichera que notre nombre est plus petit que celui a deviner
+        if int (essai) > x:
+            print (essai, '>', "Le nombre choisi!")
+            ##Si le nombre qu`on a deviner est plus grand que le nombre mystère, l`écran affichera que notre nombre est plus grand que celui a deviner
+        if int (essai) < x:
+            print (essai, '<', "Le nombre choisi")
+    # cette ligne va apparaite quand on devine le nombre mystère en nous indiquant le nombre d`essais que ca a pris pour le trouver
+    print ("Bravo! Tu a trouvé le nombre dans", nb_essai, "essais!")
+    # Apres qu`on trove le nombre mystère, le console va nous demander si on veu qitter le jeu. Si on clique n, le jeu va reccomencer. Si on clique y, le jeu(code) va se terminer
+    Quit = input ("Voulez-vous quitter? y/n")
+# cette phrase va appaitre lorsqu`on decide de quitter le jeu
+print ("Merci d`avoir jouer!")
